@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:muara_app/screens/auth/signup_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -28,12 +29,7 @@ class _LoginPageState extends State<LoginPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.grey.shade400),
-                      ),
-                      child: const Icon(Icons.chair_outlined, size: 40, color: Colors.grey),
+                      child: Image.asset('assets/images/Group.png', width: 80, height: 80),
                     ),
                   ),
                   const Expanded(child: Divider(thickness: 1, color: Colors.grey)),
@@ -66,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
+                      color: Colors.grey,
                       spreadRadius: 5,
                       blurRadius: 15,
                       offset: const Offset(0, 5),
@@ -81,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: InputDecoration(
                         labelText: 'Email',
                         labelStyle: const TextStyle(color: Colors.grey),
-                        suffixIcon: const Icon(Icons.keyboard_arrow_down, color: Colors.blue),
+                        suffixIcon: const Icon(Icons.keyboard_arrow_down, color: Colors.black),
                         enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey.shade300)),
                       ),
                     ),
@@ -129,7 +125,12 @@ class _LoginPageState extends State<LoginPage> {
                     
                     // Button Sign up
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const SignUpPage()),
+                        );
+                      },
                       child: const Text('Sign up', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 16)),
                     ),
                   ],

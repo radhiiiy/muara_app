@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:muara_app/screens/auth_screen.dart';
+import 'package:muara_app/screens/auth/auth_screen.dart';
 
 void main() {
   runApp(const HomeScreen());
