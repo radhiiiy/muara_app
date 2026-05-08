@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:muara_app/screens/home_screen.dart';
+import 'package:muara_app/screens/splash_screen.dart';
 
 void main() {
   runApp(const MuaraApp());
@@ -17,7 +17,7 @@ class MuaraApp extends StatelessWidget {
         fontFamily: 'Poppins',
         scaffoldBackgroundColor: const Color(0xFFF3F3F3),
       ),
-      home:HomeScreen(),
+      home:SplashScreen(),
     );
   }
 }

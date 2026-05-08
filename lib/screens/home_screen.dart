@@ -1,113 +1,141 @@
 import 'package:flutter/material.dart';
-import 'package:muara_app/screens/auth/auth_screen.dart';
 
-void main() {
-  runApp(const HomeScreen());
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: BoardingPage(),
-    );
-  }
-}
-
-class BoardingPage extends StatelessWidget {
-  const BoardingPage({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: const Icon(Icons.search, color: Colors.grey, size: 28),
+        title: Column(
+          children: [
+            Text('MAKE HOME', 
+              style: TextStyle(color: Colors.grey.shade500, fontSize: 14, letterSpacing: 1.2)),
+            const Text('BEAUTIFUL', 
+              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18)),
+          ],
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.shopping_cart_outlined, color: Colors.grey),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: Column(
         children: [
-          // 1. Background Image
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/bg.jpg'),
-                fit: BoxFit.cover,
-              ),
+          const SizedBox(height: 20),
+          // 1. Kategori Horizontal
+          SizedBox(
+            height: 80,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              children: [
+                _buildCategoryItem(Icons.star, 'Popular', true),
+                _buildCategoryItem(Icons.chair_outlined, 'Chair', false),
+                _buildCategoryItem(Icons.table_restaurant_outlined, 'Table', false),
+                _buildCategoryItem(Icons.weekend_outlined, 'Armchair', false),
+                _buildCategoryItem(Icons.bed_outlined, 'Bed', false),
+              ],
             ),
           ),
-
-          // 2. Konten Teks dan Tombol
-          SafeArea(
+          
+          // 2. Grid Produk
+          Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: GridView.count(
+                crossAxisCount: 2,
+                childAspectRatio: 0.65,
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 20,
                 children: [
-                  const SizedBox(height: 60),
-                  
-                  // Judul Utama
-                  Text(
-                    'MAKE YOUR\nHOME BEAUTIFUL',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey[800],
-                      letterSpacing: 1.2,
-                      height: 1.2,
-                    ),
-                  ),
-                  
-                  const SizedBox(height: 35),
-                  
-                  // Deskripsi
-                  Text(
-                    'The best simple place where you discover most wonderful furnitures and make your home beautiful',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey[600],
-                      height: 1.5,
-                    ),
-                  ),
-                  
-                  const Spacer(), // Mendorong tombol ke bawah
-
-                  // Tombol Get Started
-                  Center(
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 55,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const LoginPage()),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF242424), // Warna hitam arang
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          elevation: 5,
-                        ),
-                        child: const Text(
-                          'Get Started',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  
-                  const SizedBox(height: 50),
+                  _buildProductCard('Black Simple Lamp', '12.00', 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=500&auto=format&fit=crop'),
+                  _buildProductCard('Minimal Stand', '25.00', 'https://images.unsplash.com/photo-1581539250439-c96689b516dd?q=80&w=500&auto=format&fit=crop'),
+                  _buildProductCard('Coffee Chair', '12.00', 'https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=500&auto=format&fit=crop'),
+                  _buildProductCard('Simple Desk', '12.00', 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=500&auto=format&fit=crop'),
                 ],
               ),
             ),
           ),
         ],
       ),
+      // 3. Bottom Navigation Bar
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey,
+        currentIndex: 0,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.bookmark_border), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications_none), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: ''),
+        ],
+      ),
+    );
+  }
+
+  // Widget Helper untuk Item Kategori
+  Widget _buildCategoryItem(IconData icon, String title, bool isSelected) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 25),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: isSelected ? const Color(0xFF242424) : Colors.grey.shade200,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: isSelected ? Colors.white : Colors.grey),
+          ),
+          const SizedBox(height: 5),
+          Text(title, style: TextStyle(color: isSelected ? Colors.black : Colors.grey, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal)),
+        ],
+      ),
+    );
+  }
+
+  // Widget Helper untuk Kartu Produk
+  Widget _buildProductCard(String name, String price, String imageUrl) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.network(imageUrl, fit: BoxFit.cover, width: double.infinity),
+              ),
+              Positioned(
+                bottom: 10,
+                right: 10,
+                child: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Icon(Icons.shopping_bag_outlined, color: Colors.white, size: 20),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+        Text(name, style: const TextStyle(color: Colors.grey, fontSize: 14)),
+        Text('\$ $price', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+      ],
     );
   }
 }

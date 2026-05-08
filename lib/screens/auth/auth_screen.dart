@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muara_app/screens/auth/signup_screen.dart';
+import 'package:muara_app/screens/home_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -112,7 +113,12 @@ class _LoginPageState extends State<LoginPage> {
                       width: double.infinity,
                       height: 55,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const HomePage()),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF242424),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
