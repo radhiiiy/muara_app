@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:muara_app/screens/auth_screen.dart';
 
 void main() {
   runApp(const HomeScreen());
@@ -75,7 +76,12 @@ class BoardingPage extends StatelessWidget {
                       width: double.infinity,
                       height: 55,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const LoginPage()),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF242424), // Warna hitam arang
                           shape: RoundedRectangleBorder(
